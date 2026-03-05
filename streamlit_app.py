@@ -7,6 +7,7 @@ import streamlit as st
 from PIL import Image
 import json
 from datetime import datetime
+from med_db import MedicineDatabase
 
 # Page configuration
 st.set_page_config(
@@ -54,13 +55,110 @@ if page == "🏠 Home":
 # Medicine Interaction Checker
 elif page == "💊 Medicine Interaction Checker":
     st.header("Medicine Interaction Checker")
-    st.write("Check potential drug-drug interactions")
+    st.write("Check potential drug-drug interactions using fuzzy matching")
     
-    # Placeholder for medicine interaction logic
-    medicines = st.text_area("Enter medicine names (one per line):", height=150)
+    # Initialize medicine database
+    if 'med_db' not in st.session_state:
+        st.session_state.med_db = MedicineDatabase()
+        st.session_state.med_db.load_medicines()
+        st.session_state.med_db.load_interactions()
     
-    if st.button("Check Interactions"):
-        st.info("Medicine interaction checking functionality will be implemented in Activity 2.1")
+    med_db = st.session_state.med_db
+    
+    # Input area for medicines
+    medicines_input = st.text_area(
+        "Enter medicine names (one per line):",
+        height=150,
+        placeholder="Example:\nAtorvastatin\nIbuprofen\nMetformin"
+    )
+    
+    col1, col2 = st.columns([1, 3])
+    with col1:
+        check_button = st.button("Check Interactions", type="primary")
+    with col2:
+        if st.button("Clear"):
+            st.rerun()
+    
+    if check_button and medicines_input:
+        # Parse medicine names
+        medicine_list = [med.strip() for med in medicines_input.split('\n') if med.strip()]
+        
+        if len(medicine_list) == 0:
+            st.warning("Please enter at least one medicine name.")
+        else:
+            st.markdown("---")
+            st.subheader("Analysis Results")
+            
+            # Step 1: Identify medicines using fuzzy matching
+            st.markdown("### 🔍 Medicine Identification")
+            identified_medicines = []
+            
+            for med_input in medicine_list:
+                match = med_db.find_medicine(med_input, threshold=70)
+                
+                if match:
+                    identified_medicines.append(match['name'])
+                    confidence = match['confidence']
+                    
+                    if confidence == 100:
+                        st.success(f"✅ **{med_input}** → Exact match: **{match['data']['name']}**")
+                    else:
+                        st.info(f"🔍 **{med_input}** → Found: **{match['data']['name']}** (Confidence: {confidence}%)")
+                else:
+                    st.error(f"❌ **{med_input}** → Not found in database")
+            
+            # Step 2: Check for interactions
+            if len(identified_medicines) >= 2:
+                st.markdown("---")
+                st.markdown("### ⚠️ Interaction Analysis")
+                
+                interactions = med_db.check_interactions(identified_medicines)
+                
+                if interactions:
+                    st.warning(f"Found {len(interactions)} potential interaction(s)")
+                    
+                    for idx, interaction in enumerate(interactions, 1):
+                        severity = interaction['severity']
+                        
+                        # Color code by severity
+                        if severity == 'high':
+                            st.error(f"**Interaction {idx}: HIGH SEVERITY**")
+                        elif severity == 'moderate':
+                            st.warning(f"**Interaction {idx}: MODERATE SEVERITY**")
+                        else:
+                            st.info(f"**Interaction {idx}: {severity.upper()} SEVERITY**")
+                        
+                        st.write(f"**Medicines:** {interaction['medicine1'].title()} + {interaction['medicine2'].title()}")
+                        st.write(f"**Description:** {interaction['description']}")
+                        st.markdown("---")
+                else:
+                    st.success("✅ No known interactions detected between these medicines")
+            
+            elif len(identified_medicines) == 1:
+                st.info("ℹ️ Enter at least 2 medicines to check for interactions")
+            
+            # Step 3: Individual medicine warnings
+            if identified_medicines:
+                st.markdown("---")
+                st.markdown("### 📋 Individual Medicine Warnings")
+                
+                for med_name in identified_medicines:
+                    warnings = med_db.get_medicine_warnings(med_name)
+                    
+                    if warnings:
+                        with st.expander(f"⚠️ {med_name.title()} - {len(warnings)} warning(s)"):
+                            for warning in warnings:
+                                st.write(warning)
+                    else:
+                        with st.expander(f"✅ {med_name.title()} - No specific warnings"):
+                            st.write("No additional warnings for this medicine")
+            
+            # Educational disclaimer
+            st.markdown("---")
+            st.info("📌 **Disclaimer:** This is an educational tool. Always consult healthcare professionals for medical advice.")
+    
+    elif check_button:
+        st.warning("Please enter at least one medicine name.")
 
 # Prescription OCR
 elif page == "📄 Prescription OCR":
