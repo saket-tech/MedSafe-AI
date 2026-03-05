@@ -22,22 +22,35 @@ class OCREngine:
         Args:
             tesseract_path: Path to Tesseract executable (optional)
         """
+        # Try to find and configure tesseract
+        tesseract_found = False
+        
         if tesseract_path:
             pytesseract.pytesseract.tesseract_cmd = tesseract_path
+            tesseract_found = True
+        else:
+            # Try common paths for cloud deployment
+            possible_paths = [
+                '/usr/bin/tesseract',
+                '/usr/local/bin/tesseract',
+                'tesseract',
+            ]
+            
+            for path in possible_paths:
+                try:
+                    pytesseract.pytesseract.tesseract_cmd = path
+                    pytesseract.get_tesseract_version()
+                    tesseract_found = True
+                    print(f"Tesseract found at: {path}")
+                    break
+                except Exception:
+                    continue
         
-        # Try to set tesseract path for cloud deployment
-        try:
-            # Check if tesseract is available
-            pytesseract.get_tesseract_version()
-        except Exception:
-            # Try common cloud paths
-            try:
-                pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
-                pytesseract.get_tesseract_version()
-            except Exception:
-                print("Warning: Tesseract OCR not found. OCR functionality may be limited.")
+        if not tesseract_found:
+            print("Warning: Tesseract OCR not found. OCR functionality will not work.")
         
         self.supported_formats = ['.jpg', '.jpeg', '.png', '.bmp', '.tiff']
+        self.tesseract_available = tesseract_found
     
     def extract_text(self, image_path: str) -> str:
         """
@@ -78,6 +91,9 @@ class OCREngine:
         Returns:
             Extracted text string
         """
+        if not self.tesseract_available:
+            raise Exception("Tesseract OCR is not available on this server. Please install Tesseract OCR or use a local deployment.")
+        
         try:
             # Preprocess image
             processed_image = self.preprocess_image(pil_image)
