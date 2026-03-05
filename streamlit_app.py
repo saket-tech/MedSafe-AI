@@ -9,6 +9,8 @@ import json
 from datetime import datetime
 from med_db import MedicineDatabase
 from ocr_utils import OCREngine
+from symptom import SymptomAnalyzer
+from risk_engine import RiskEngine
 
 # Page configuration
 st.set_page_config(
@@ -351,45 +353,320 @@ elif page == "📄 Prescription OCR":
 # Symptom & Doubt Solver
 elif page == "🩺 Symptom & Doubt Solver":
     st.header("Symptom & Doubt Solver")
-    st.write("Get guidance for your symptoms")
+    st.write("Get AI-enhanced guidance for your symptoms")
     
-    # Placeholder for symptom analysis logic
-    symptoms = st.text_area("Describe your symptoms:", height=150)
+    # Initialize symptom analyzer
+    if 'symptom_analyzer' not in st.session_state:
+        st.session_state.symptom_analyzer = SymptomAnalyzer()
     
-    if st.button("Get Guidance"):
-        st.info("Symptom analysis functionality will be implemented in Activity 2.3")
+    analyzer = st.session_state.symptom_analyzer
+    
+    # Input area
+    symptoms = st.text_area(
+        "Describe your symptoms:",
+        height=150,
+        placeholder="Example: I have a headache and feel dizzy. It started this morning..."
+    )
+    
+    col1, col2 = st.columns([1, 3])
+    with col1:
+        analyze_button = st.button("Get Guidance", type="primary")
+    with col2:
+        use_ai = st.checkbox("Use AI Analysis", value=True, help="Use LLaMA 3 for enhanced analysis")
+    
+    if analyze_button and symptoms:
+        with st.spinner("🔍 Analyzing symptoms..."):
+            # Analyze symptoms
+            analysis = analyzer.analyze_symptoms(symptoms, use_ai=use_ai)
+            
+            st.markdown("---")
+            st.subheader("📊 Analysis Results")
+            
+            # Severity indicator
+            severity = analysis['severity']
+            if severity == "high":
+                st.error(f"🚨 **Severity Level: HIGH**")
+            elif severity == "medium":
+                st.warning(f"⚠️ **Severity Level: MEDIUM**")
+            else:
+                st.info(f"ℹ️ **Severity Level: LOW**")
+            
+            # Detected symptoms
+            if analysis['detected_symptoms']:
+                st.markdown("### 🔍 Detected Symptoms")
+                for symptom in analysis['detected_symptoms']:
+                    st.write(f"• {symptom.title()}")
+            
+            # AI Explanation
+            if analysis['ai_explanation']:
+                st.markdown("---")
+                st.markdown("### 🤖 AI Educational Explanation")
+                st.info(analysis['ai_explanation'])
+            
+            # Home Remedies
+            if analysis['home_remedies']:
+                st.markdown("---")
+                st.markdown("### 🏠 Home Remedies")
+                for remedy in analysis['home_remedies']:
+                    st.write(f"✓ {remedy}")
+            
+            # Lifestyle Suggestions
+            if analysis['lifestyle_suggestions']:
+                st.markdown("---")
+                st.markdown("### 💪 Lifestyle Suggestions")
+                for suggestion in analysis['lifestyle_suggestions']:
+                    st.write(f"✓ {suggestion}")
+            
+            # Warning Signs
+            if analysis['warning_signs']:
+                st.markdown("---")
+                st.markdown("### ⚠️ Warning Signs - Seek Immediate Care If:")
+                for warning in analysis['warning_signs']:
+                    st.error(f"🚨 {warning}")
+            
+            # Disclaimer
+            st.markdown("---")
+            st.info("📌 **Disclaimer:** This is an educational tool only. Always consult healthcare professionals for medical diagnosis and treatment.")
+    
+    elif analyze_button:
+        st.warning("Please describe your symptoms to get guidance.")
+    
+    else:
+        # Instructions
+        st.markdown("### 📋 How to Use:")
+        st.write("1. Describe your symptoms in detail")
+        st.write("2. Click 'Get Guidance' to analyze")
+        st.write("3. Review home remedies and lifestyle suggestions")
+        st.write("4. Watch for warning signs that need immediate care")
 
 # Side-Effect Monitor
 elif page == "⚠️ Side-Effect Monitor":
     st.header("Side-Effect Monitor")
     st.write("Log and analyze post-medication experiences")
     
-    # Placeholder for side-effect monitoring logic
+    # Initialize risk engine
+    if 'risk_engine' not in st.session_state:
+        st.session_state.risk_engine = RiskEngine()
+    
+    risk_engine = st.session_state.risk_engine
+    
+    # Input form
     col1, col2 = st.columns(2)
     with col1:
         age = st.number_input("Age", min_value=1, max_value=120, value=30)
         gender = st.selectbox("Gender", ["Male", "Female", "Other"])
     
     with col2:
-        medicine = st.text_input("Medicine taken")
-        dosage = st.text_input("Dosage")
+        medicine = st.text_input("Medicine taken", placeholder="e.g., Ibuprofen")
+        dosage = st.text_input("Dosage", placeholder="e.g., 400mg")
     
-    experience = st.text_area("Post-medication experience:", height=100)
+    experience = st.text_area(
+        "Post-medication experience:",
+        height=150,
+        placeholder="Describe any side effects or reactions you experienced..."
+    )
     
-    if st.button("Analyze"):
-        st.info("Side-effect analysis functionality will be implemented in Activity 2.3")
+    col1, col2 = st.columns([1, 3])
+    with col1:
+        analyze_button = st.button("Analyze", type="primary")
+    with col2:
+        use_ai = st.checkbox("Use AI Analysis", value=True, help="Use LLaMA 3 for enhanced analysis")
+    
+    if analyze_button and medicine and experience:
+        with st.spinner("🔍 Analyzing side effects..."):
+            # Analyze side effects
+            analysis = risk_engine.analyze_side_effects(
+                medicine=medicine,
+                dosage=dosage,
+                experience=experience,
+                age=age,
+                gender=gender,
+                use_ai=use_ai
+            )
+            
+            st.markdown("---")
+            st.subheader("📊 Side Effect Analysis")
+            
+            # Severity indicator
+            severity = analysis['severity']
+            if severity == "severe":
+                st.error(f"🚨 **Severity: SEVERE**")
+            elif severity == "moderate":
+                st.warning(f"⚠️ **Severity: MODERATE**")
+            else:
+                st.info(f"ℹ️ **Severity: MILD**")
+            
+            # Medicine info
+            st.markdown("### 💊 Medicine Information")
+            col1, col2 = st.columns(2)
+            with col1:
+                st.write(f"**Medicine:** {analysis['medicine']}")
+                st.write(f"**Dosage:** {analysis['dosage']}")
+            with col2:
+                st.write(f"**Age:** {analysis['age']}")
+                st.write(f"**Gender:** {analysis['gender']}")
+            
+            # AI Analysis
+            if analysis['ai_analysis']:
+                st.markdown("---")
+                st.markdown("### 🤖 AI Analysis")
+                st.info(analysis['ai_analysis'])
+            
+            # Recommendation
+            st.markdown("---")
+            st.markdown("### 📋 Recommendation")
+            if severity == "severe":
+                st.error(analysis['recommendation'])
+            elif severity == "moderate":
+                st.warning(analysis['recommendation'])
+            else:
+                st.info(analysis['recommendation'])
+            
+            # Disclaimer
+            st.markdown("---")
+            st.info("📌 **Disclaimer:** This analysis is for educational purposes. Always consult your healthcare provider about medication side effects.")
+    
+    elif analyze_button:
+        st.warning("Please fill in medicine name and experience to analyze.")
+    
+    else:
+        # Instructions
+        st.markdown("### 📋 How to Use:")
+        st.write("1. Enter your age and gender")
+        st.write("2. Specify the medicine and dosage taken")
+        st.write("3. Describe your post-medication experience")
+        st.write("4. Click 'Analyze' to get AI-enhanced analysis")
 
 # Emergency Risk Predictor
 elif page == "🚨 Emergency Risk Predictor":
     st.header("Emergency Risk Predictor")
     st.write("Assess emergency risk level based on symptoms")
     
-    # Placeholder for risk scoring logic
-    symptoms = st.text_area("Describe symptoms:", height=150)
-    severity = st.slider("Symptom severity (1-10)", 1, 10, 5)
+    # Initialize risk engine
+    if 'risk_engine' not in st.session_state:
+        st.session_state.risk_engine = RiskEngine()
     
-    if st.button("Calculate Risk"):
-        st.info("Risk scoring functionality will be implemented in Activity 2.3")
+    risk_engine = st.session_state.risk_engine
+    
+    # Input form
+    col1, col2 = st.columns(2)
+    with col1:
+        age = st.number_input("Age (optional)", min_value=0, max_value=120, value=0, help="Leave as 0 if you prefer not to specify")
+        gender = st.selectbox("Gender (optional)", ["Not specified", "Male", "Female", "Other"])
+    
+    with col2:
+        medical_history = st.multiselect(
+            "Medical History (optional)",
+            ["Heart Disease", "Diabetes", "Hypertension", "Asthma", "COPD", "None"]
+        )
+    
+    symptoms = st.text_area(
+        "Describe symptoms:",
+        height=150,
+        placeholder="Example: Severe chest pain radiating to left arm, difficulty breathing, sweating..."
+    )
+    
+    severity = st.slider("Symptom severity (1-10)", 1, 10, 5, help="1 = Mild, 10 = Severe")
+    
+    col1, col2 = st.columns([1, 3])
+    with col1:
+        calculate_button = st.button("Calculate Risk", type="primary")
+    with col2:
+        use_ai = st.checkbox("Use AI Safety Note", value=True, help="Generate AI-enhanced safety guidance")
+    
+    if calculate_button and symptoms:
+        with st.spinner("🔍 Calculating risk score..."):
+            # Calculate risk
+            risk_assessment = risk_engine.calculate_risk_score(
+                symptoms=symptoms,
+                severity=severity,
+                age=age if age > 0 else None,
+                gender=gender if gender != "Not specified" else None,
+                medical_history=medical_history if medical_history and "None" not in medical_history else None,
+                use_ai=use_ai
+            )
+            
+            st.markdown("---")
+            st.subheader("📊 Risk Assessment Results")
+            
+            # Risk Score Display
+            risk_score = risk_assessment['risk_score']
+            risk_level = risk_assessment['risk_level']
+            
+            # Create visual risk meter
+            col1, col2, col3 = st.columns([2, 1, 2])
+            with col2:
+                if risk_level == "HIGH":
+                    st.error(f"### {risk_score}%")
+                    st.error(f"**{risk_level} RISK**")
+                elif risk_level == "MEDIUM":
+                    st.warning(f"### {risk_score}%")
+                    st.warning(f"**{risk_level} RISK**")
+                else:
+                    st.info(f"### {risk_score}%")
+                    st.info(f"**{risk_level} RISK**")
+            
+            # Risk Factors
+            if risk_assessment['risk_factors']:
+                st.markdown("---")
+                st.markdown("### ⚠️ Identified Risk Factors")
+                for factor in risk_assessment['risk_factors']:
+                    st.write(f"• {factor}")
+            
+            # Affected Categories
+            if risk_assessment['affected_categories']:
+                st.markdown("---")
+                st.markdown("### 🏥 Affected Systems")
+                for category in risk_assessment['affected_categories']:
+                    st.write(f"• {category.title()}")
+            
+            # AI Safety Note
+            if risk_assessment['ai_safety_note']:
+                st.markdown("---")
+                st.markdown("### 🤖 AI Safety Guidance")
+                st.info(risk_assessment['ai_safety_note'])
+            
+            # Recommendation
+            st.markdown("---")
+            st.markdown("### 📋 Recommendation")
+            if risk_level == "HIGH":
+                st.error(risk_assessment['recommendation'])
+            elif risk_level == "MEDIUM":
+                st.warning(risk_assessment['recommendation'])
+            else:
+                st.info(risk_assessment['recommendation'])
+            
+            # Calculation Details (expandable)
+            with st.expander("🔍 View Calculation Details"):
+                details = risk_assessment['calculation_details']
+                st.write(f"**Base Score:** {details['base_score']}")
+                st.write(f"**Severity Factor:** {details['severity_factor']}")
+                st.write(f"**Age Factor:** {details['age_factor']}")
+                st.write(f"**Medical History Factor:** {details['history_factor']}")
+                st.write(f"**Final Score:** {risk_score}%")
+            
+            # Disclaimer
+            st.markdown("---")
+            st.error("🚨 **IMPORTANT:** This is an educational risk assessment tool only. It does NOT replace professional medical evaluation. If you are experiencing a medical emergency, call 911 or your local emergency number immediately.")
+    
+    elif calculate_button:
+        st.warning("Please describe your symptoms to calculate risk.")
+    
+    else:
+        # Instructions and examples
+        st.markdown("### 📋 How to Use:")
+        st.write("1. Describe your symptoms in detail")
+        st.write("2. Rate the severity (1-10)")
+        st.write("3. Optionally provide age and medical history")
+        st.write("4. Click 'Calculate Risk' for assessment")
+        
+        st.markdown("### ⚠️ High-Risk Symptoms (Seek Immediate Care):")
+        st.write("• Chest pain or pressure")
+        st.write("• Difficulty breathing")
+        st.write("• Sudden severe headache")
+        st.write("• Loss of consciousness")
+        st.write("• Severe bleeding")
+        st.write("• Signs of stroke (facial drooping, arm weakness, speech difficulty)")
 
 # Footer
 st.sidebar.markdown("---")
