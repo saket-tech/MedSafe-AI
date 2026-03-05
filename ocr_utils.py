@@ -66,20 +66,20 @@ class OCREngine:
             # Load image
             image = Image.open(image_path)
             
-            # Preprocess image if needed
+            # Preprocess image
             processed_image = self.preprocess_image(image)
             
-            # Extract text using Tesseract
-            text = pytesseract.image_to_string(processed_image)
+            # Use custom tesseract config for better accuracy
+            custom_config = r'--oem 3 --psm 6 -c preserve_interword_spaces=1'
+            
+            # Extract text using Tesseract with custom config
+            text = pytesseract.image_to_string(processed_image, config=custom_config)
             
             return text
         except pytesseract.TesseractNotFoundError:
             raise Exception("Tesseract OCR is not installed or not found. Please install Tesseract OCR to use this feature.")
         except Exception as e:
             raise Exception(f"Error extracting text from image: {str(e)}")
-        except Exception as e:
-            print(f"Error extracting text: {e}")
-            return ""
     
     def extract_text_from_pil(self, pil_image: Image.Image) -> str:
         """
@@ -98,8 +98,11 @@ class OCREngine:
             # Preprocess image
             processed_image = self.preprocess_image(pil_image)
             
-            # Extract text
-            text = pytesseract.image_to_string(processed_image)
+            # Use custom tesseract config for better accuracy
+            custom_config = r'--oem 3 --psm 6 -c preserve_interword_spaces=1'
+            
+            # Extract text with custom config
+            text = pytesseract.image_to_string(processed_image, config=custom_config)
             
             return text
         except pytesseract.TesseractNotFoundError:
@@ -119,19 +122,38 @@ class OCREngine:
             Preprocessed PIL Image
         """
         try:
+            # Resize image if too small (improves OCR accuracy)
+            width, height = image.size
+            if width < 1000 or height < 1000:
+                scale_factor = max(1000 / width, 1000 / height)
+                new_width = int(width * scale_factor)
+                new_height = int(height * scale_factor)
+                image = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
+            
             # Convert to grayscale
             image = image.convert('L')
             
-            # Enhance contrast
+            # Enhance contrast more aggressively
             enhancer = ImageEnhance.Contrast(image)
-            image = enhancer.enhance(2.0)
+            image = enhancer.enhance(2.5)
+            
+            # Enhance brightness
+            enhancer = ImageEnhance.Brightness(image)
+            image = enhancer.enhance(1.2)
             
             # Enhance sharpness
             enhancer = ImageEnhance.Sharpness(image)
-            image = enhancer.enhance(2.0)
+            image = enhancer.enhance(2.5)
             
             # Apply slight blur to reduce noise
             image = image.filter(ImageFilter.MedianFilter(size=3))
+            
+            # Apply threshold to create binary image (black text on white background)
+            import numpy as np
+            img_array = np.array(image)
+            threshold = np.mean(img_array)
+            img_array = np.where(img_array > threshold, 255, 0).astype(np.uint8)
+            image = Image.fromarray(img_array)
             
             return image
         except Exception as e:
