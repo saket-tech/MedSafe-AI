@@ -8,7 +8,7 @@ from PIL import Image, ImageEnhance, ImageFilter
 from typing import Dict, List, Optional
 import json
 import re
-import ollama
+from langchain_community.llms import Ollama
 
 class OCREngine:
     """
@@ -196,19 +196,9 @@ Prescription text:
 Return ONLY the JSON object, no additional text or explanation."""
 
         try:
-            # Call LLaMA 3 via Ollama
-            response = ollama.chat(
-                model='llama3',
-                messages=[
-                    {
-                        'role': 'user',
-                        'content': prompt
-                    }
-                ]
-            )
-            
-            # Extract response content
-            response_text = response['message']['content']
+            # Call LLaMA 3 via LangChain Ollama
+            llm = Ollama(model='llama3')
+            response_text = llm.invoke(prompt)
             
             # Try to parse JSON from response
             # Remove markdown code blocks if present

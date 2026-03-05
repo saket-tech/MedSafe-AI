@@ -5,7 +5,7 @@ Rule-based symptom advice logic and AI-enhanced guidance
 
 from typing import Dict, List, Optional
 from datetime import datetime
-import ollama
+from langchain_community.llms import Ollama
 import re
 
 class SymptomAnalyzer:
@@ -164,12 +164,8 @@ Description: {description}
 
 Return only the symptom keywords, nothing else:"""
 
-            response = ollama.chat(
-                model='llama3',
-                messages=[{'role': 'user', 'content': prompt}]
-            )
-            
-            symptoms_text = response['message']['content'].strip()
+            llm = Ollama(model='llama3')
+            symptoms_text = llm.invoke(prompt).strip()
             symptoms = [s.strip().lower() for s in symptoms_text.split(',')]
             
             # Filter to known symptoms
@@ -198,12 +194,8 @@ User description: {description}
 
 Provide a brief educational explanation:"""
 
-            response = ollama.chat(
-                model='llama3',
-                messages=[{'role': 'user', 'content': prompt}]
-            )
-            
-            return response['message']['content'].strip()
+            llm = Ollama(model='llama3')
+            return llm.invoke(prompt).strip()
             
         except Exception as e:
             print(f"AI explanation generation failed: {e}")

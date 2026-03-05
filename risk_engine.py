@@ -6,7 +6,7 @@ Emergency risk scoring and safety rules
 from typing import Dict, List, Optional
 from datetime import datetime
 from enum import Enum
-import ollama
+from langchain_community.llms import Ollama
 
 class RiskLevel(Enum):
     """Risk severity levels"""
@@ -212,12 +212,8 @@ Risk Factors: {', '.join(risk_assessment['risk_factors'][:3])}
 
 Provide a brief safety note:"""
 
-            response = ollama.chat(
-                model='llama3',
-                messages=[{'role': 'user', 'content': prompt}]
-            )
-            
-            return response['message']['content'].strip()
+            llm = Ollama(model='llama3')
+            return llm.invoke(prompt).strip()
             
         except Exception as e:
             print(f"AI safety note generation failed: {e}")
@@ -305,12 +301,8 @@ Severity: {severity}
 
 Provide brief educational analysis:"""
 
-            response = ollama.chat(
-                model='llama3',
-                messages=[{'role': 'user', 'content': prompt}]
-            )
-            
-            return response['message']['content'].strip()
+            llm = Ollama(model='llama3')
+            return llm.invoke(prompt).strip()
             
         except Exception as e:
             print(f"AI side effect analysis failed: {e}")
