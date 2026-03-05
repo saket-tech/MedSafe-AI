@@ -1,0 +1,20 @@
+{
+  "atorvastatin_clarithromycin": {
+    "medicine1": "atorvastatin",
+    "medicine2": "clarithromycin",
+    "severity": "moderate",
+    "description": "Increased exposure to atorvastatin [] increased myopathy risk"
+  },
+  "ibuprofen_aspirin": {
+    "medicine1": "ibuprofen",
+    "medicine2": "aspirin",
+    "severity": "moderate",
+    "description": "May reduce cardioprotective effect of aspirin"
+  },
+  "ibuprofen_warfarin": {
+    "medicine1": "ibuprofen",
+    "medicine2": "warfarin",
+    "severity": "high",
+    "description": "Increased bleeding risk when combined"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "atorvastatin": {
+    "name": "Atorvastatin",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["clarithromycin", "itraconazole"],
+    "grapefruit": "High [] Avoid grapefruit juice"
+  },
+  "metformin": {
+    "name": "Metformin",
+    "standard_dose_mg": {"adult": 500},
+    "interactions": [],
+    "grapefruit": "None"
+  },
+  "amoxicillin": {
+    "name": "Amoxicillin",
+    "standard_dose_mg": {"adult": 500},
+    "interactions": ["methotrexate"],
+    "grapefruit": "None"
+  },
+  "ibuprofen": {
+    "name": "Ibuprofen",
+    "standard_dose_mg": {"adult": 400},
+    "interactions": ["aspirin", "warfarin"],
+    "grapefruit": "None"
+  },
+  "lisinopril": {
+    "name": "Lisinopril",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["potassium supplements"],
+    "grapefruit": "None"
+  }
+}
