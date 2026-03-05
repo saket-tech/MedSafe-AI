@@ -25,6 +25,18 @@ class OCREngine:
         if tesseract_path:
             pytesseract.pytesseract.tesseract_cmd = tesseract_path
         
+        # Try to set tesseract path for cloud deployment
+        try:
+            # Check if tesseract is available
+            pytesseract.get_tesseract_version()
+        except Exception:
+            # Try common cloud paths
+            try:
+                pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
+                pytesseract.get_tesseract_version()
+            except Exception:
+                print("Warning: Tesseract OCR not found. OCR functionality may be limited.")
+        
         self.supported_formats = ['.jpg', '.jpeg', '.png', '.bmp', '.tiff']
     
     def extract_text(self, image_path: str) -> str:
@@ -48,6 +60,10 @@ class OCREngine:
             text = pytesseract.image_to_string(processed_image)
             
             return text
+        except pytesseract.TesseractNotFoundError:
+            raise Exception("Tesseract OCR is not installed or not found. Please install Tesseract OCR to use this feature.")
+        except Exception as e:
+            raise Exception(f"Error extracting text from image: {str(e)}")
         except Exception as e:
             print(f"Error extracting text: {e}")
             return ""
@@ -70,9 +86,11 @@ class OCREngine:
             text = pytesseract.image_to_string(processed_image)
             
             return text
+        except pytesseract.TesseractNotFoundError:
+            raise Exception("Tesseract OCR is not installed. This feature requires Tesseract OCR to be installed on the server.")
         except Exception as e:
             print(f"Error extracting text from PIL image: {e}")
-            return ""
+            raise Exception(f"Error extracting text: {str(e)}")
     
     def preprocess_image(self, image: Image.Image) -> Image.Image:
         """
