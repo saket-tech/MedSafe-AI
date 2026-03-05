@@ -29,7 +29,7 @@ class OCREngine:
     
     def extract_text(self, image_path: str) -> str:
         """
-        Extract text from prescription image using OCR
+        Extract text from prescription image using OCR with multiple strategies
         
         Args:
             image_path: Path to prescription image
@@ -41,20 +41,16 @@ class OCREngine:
             # Load image
             image = Image.open(image_path)
             
-            # Preprocess image if needed
-            processed_image = self.preprocess_image(image)
+            # Use the PIL extraction method
+            return self.extract_text_from_pil(image)
             
-            # Extract text using Tesseract
-            text = pytesseract.image_to_string(processed_image)
-            
-            return text
         except Exception as e:
             print(f"Error extracting text: {e}")
             return ""
     
     def extract_text_from_pil(self, pil_image: Image.Image) -> str:
         """
-        Extract text from PIL Image object
+        Extract text from PIL Image object with multiple OCR strategies
         
         Args:
             pil_image: PIL Image object
@@ -66,17 +62,39 @@ class OCREngine:
             # Preprocess image
             processed_image = self.preprocess_image(pil_image)
             
-            # Extract text
-            text = pytesseract.image_to_string(processed_image)
+            # Try multiple Tesseract configurations and pick the best result
+            configs = [
+                r'--oem 3 --psm 6',  # Uniform block of text (best for prescriptions)
+                r'--oem 3 --psm 4',  # Single column of text
+                r'--oem 3 --psm 3',  # Fully automatic page segmentation
+                r'--oem 1 --psm 6',  # Legacy + LSTM engine
+            ]
             
-            return text
+            results = []
+            for config in configs:
+                try:
+                    text = pytesseract.image_to_string(processed_image, config=config, lang='eng')
+                    if text and len(text.strip()) > 0:
+                        results.append((text, len(text.strip())))
+                except Exception as e:
+                    print(f"Config {config} failed: {e}")
+                    continue
+            
+            # Return the result with most extracted text
+            if results:
+                results.sort(key=lambda x: x[1], reverse=True)
+                return results[0][0]
+            
+            # Fallback to default
+            return pytesseract.image_to_string(processed_image, lang='eng')
+            
         except Exception as e:
             print(f"Error extracting text from PIL image: {e}")
             return ""
     
     def preprocess_image(self, image: Image.Image) -> Image.Image:
         """
-        Preprocess image for better OCR results
+        Preprocess image for better OCR results with advanced techniques
         
         Args:
             image: PIL Image object
@@ -85,24 +103,66 @@ class OCREngine:
             Preprocessed PIL Image
         """
         try:
+            # Resize if image is too small (OCR works better on larger images)
+            width, height = image.size
+            min_dimension = 2000
+            if width < min_dimension or height < min_dimension:
+                scale = max(min_dimension / width, min_dimension / height)
+                new_size = (int(width * scale), int(height * scale))
+                image = image.resize(new_size, Image.Resampling.LANCZOS)
+            
+            # Convert to RGB first if needed
+            if image.mode not in ('RGB', 'L'):
+                image = image.convert('RGB')
+            
             # Convert to grayscale
             image = image.convert('L')
             
+            # Apply adaptive histogram equalization for better contrast
+            import numpy as np
+            from PIL import ImageOps
+            
+            # Auto-contrast to normalize brightness
+            image = ImageOps.autocontrast(image, cutoff=2)
+            
+            # Enhance sharpness moderately
+            enhancer = ImageEnhance.Sharpness(image)
+            image = enhancer.enhance(1.8)
+            
             # Enhance contrast
             enhancer = ImageEnhance.Contrast(image)
-            image = enhancer.enhance(2.0)
+            image = enhancer.enhance(1.5)
             
-            # Enhance sharpness
-            enhancer = ImageEnhance.Sharpness(image)
-            image = enhancer.enhance(2.0)
+            # Apply bilateral filter to reduce noise while preserving edges
+            # Convert to numpy for advanced processing
+            img_array = np.array(image)
             
-            # Apply slight blur to reduce noise
-            image = image.filter(ImageFilter.MedianFilter(size=3))
+            # Simple denoising using median filter on small scale
+            from scipy.ndimage import median_filter
+            img_array = median_filter(img_array, size=2)
+            
+            # Apply adaptive thresholding for better text separation
+            from skimage.filters import threshold_local
+            block_size = 35
+            if img_array.shape[0] > block_size and img_array.shape[1] > block_size:
+                local_thresh = threshold_local(img_array, block_size, offset=10, method='gaussian')
+                binary = img_array > local_thresh
+                img_array = (binary * 255).astype(np.uint8)
+            
+            image = Image.fromarray(img_array)
             
             return image
         except Exception as e:
-            print(f"Error preprocessing image: {e}")
-            return image
+            print(f"Error in advanced preprocessing: {e}, falling back to basic")
+            # Fallback to basic preprocessing
+            try:
+                if image.mode != 'L':
+                    image = image.convert('L')
+                enhancer = ImageEnhance.Contrast(image)
+                image = enhancer.enhance(1.5)
+                return image
+            except:
+                return image
     
     def parse_medicines_from_text(self, text: str) -> List[str]:
         """
