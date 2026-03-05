@@ -1,0 +1,24 @@
+# MedSafe AI - Python Dependencies
+
+# Web Framework
+streamlit==1.31.0
+
+# OCR and Image Processing
+pytesseract==0.3.10
+Pillow==10.2.0
+
+# Fuzzy Matching
+rapidfuzz==3.6.1
+
+# LLM Integration
+ollama==0.1.6
+
+# Data Handling
+pandas==2.2.0
+
+# Utilities
+python-dateutil==2.8.2
+
+# Testing (optional)
+pytest==8.0.0
+pytest-cov==4.1.0
