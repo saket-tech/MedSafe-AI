@@ -2,31 +2,625 @@
   "atorvastatin": {
     "name": "Atorvastatin",
     "standard_dose_mg": {"adult": 10},
-    "interactions": ["clarithromycin", "itraconazole"],
-    "grapefruit": "High [] Avoid grapefruit juice"
+    "interactions": ["clarithromycin", "itraconazole", "cyclosporine"],
+    "grapefruit": "High - Avoid grapefruit juice"
   },
   "metformin": {
     "name": "Metformin",
     "standard_dose_mg": {"adult": 500},
-    "interactions": [],
+    "interactions": ["alcohol", "contrast dye"],
     "grapefruit": "None"
   },
   "amoxicillin": {
     "name": "Amoxicillin",
     "standard_dose_mg": {"adult": 500},
-    "interactions": ["methotrexate"],
+    "interactions": ["methotrexate", "warfarin"],
     "grapefruit": "None"
   },
   "ibuprofen": {
     "name": "Ibuprofen",
     "standard_dose_mg": {"adult": 400},
-    "interactions": ["aspirin", "warfarin"],
+    "interactions": ["aspirin", "warfarin", "lisinopril"],
     "grapefruit": "None"
   },
   "lisinopril": {
     "name": "Lisinopril",
     "standard_dose_mg": {"adult": 10},
-    "interactions": ["potassium supplements"],
+    "interactions": ["potassium supplements", "ibuprofen", "lithium"],
+    "grapefruit": "None"
+  },
+  "aspirin": {
+    "name": "Aspirin",
+    "standard_dose_mg": {"adult": 325},
+    "interactions": ["ibuprofen", "warfarin", "clopidogrel"],
+    "grapefruit": "None"
+  },
+  "warfarin": {
+    "name": "Warfarin",
+    "standard_dose_mg": {"adult": 5},
+    "interactions": ["aspirin", "ibuprofen", "amoxicillin", "vitamin k"],
+    "grapefruit": "None"
+  },
+  "omeprazole": {
+    "name": "Omeprazole",
+    "standard_dose_mg": {"adult": 20},
+    "interactions": ["clopidogrel", "diazepam", "warfarin"],
+    "grapefruit": "None"
+  },
+  "amlodipine": {
+    "name": "Amlodipine",
+    "standard_dose_mg": {"adult": 5},
+    "interactions": ["simvastatin", "clarithromycin"],
+    "grapefruit": "Moderate - Limit grapefruit juice"
+  },
+  "levothyroxine": {
+    "name": "Levothyroxine",
+    "standard_dose_mg": {"adult": 100},
+    "interactions": ["calcium", "iron", "omeprazole"],
+    "grapefruit": "None"
+  },
+  "simvastatin": {
+    "name": "Simvastatin",
+    "standard_dose_mg": {"adult": 20},
+    "interactions": ["amlodipine", "clarithromycin", "itraconazole"],
+    "grapefruit": "High - Avoid grapefruit juice"
+  },
+  "losartan": {
+    "name": "Losartan",
+    "standard_dose_mg": {"adult": 50},
+    "interactions": ["potassium supplements", "lithium"],
+    "grapefruit": "None"
+  },
+  "gabapentin": {
+    "name": "Gabapentin",
+    "standard_dose_mg": {"adult": 300},
+    "interactions": ["morphine", "hydrocodone"],
+    "grapefruit": "None"
+  },
+  "hydrochlorothiazide": {
+    "name": "Hydrochlorothiazide",
+    "standard_dose_mg": {"adult": 25},
+    "interactions": ["lithium", "digoxin"],
+    "grapefruit": "None"
+  },
+  "sertraline": {
+    "name": "Sertraline",
+    "standard_dose_mg": {"adult": 50},
+    "interactions": ["tramadol", "warfarin", "nsaids"],
+    "grapefruit": "Moderate - Limit grapefruit juice"
+  },
+  "montelukast": {
+    "name": "Montelukast",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["phenobarbital", "rifampin"],
+    "grapefruit": "None"
+  },
+  "escitalopram": {
+    "name": "Escitalopram",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["tramadol", "nsaids", "warfarin"],
+    "grapefruit": "None"
+  },
+  "rosuvastatin": {
+    "name": "Rosuvastatin",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["cyclosporine", "gemfibrozil"],
+    "grapefruit": "Low - Minimal interaction"
+  },
+  "pantoprazole": {
+    "name": "Pantoprazole",
+    "standard_dose_mg": {"adult": 40},
+    "interactions": ["warfarin", "methotrexate"],
+    "grapefruit": "None"
+  },
+  "furosemide": {
+    "name": "Furosemide",
+    "standard_dose_mg": {"adult": 40},
+    "interactions": ["lithium", "digoxin", "aminoglycosides"],
+    "grapefruit": "None"
+  },
+  "clopidogrel": {
+    "name": "Clopidogrel",
+    "standard_dose_mg": {"adult": 75},
+    "interactions": ["omeprazole", "aspirin", "warfarin"],
+    "grapefruit": "None"
+  },
+  "albuterol": {
+    "name": "Albuterol",
+    "standard_dose_mg": {"adult": 2},
+    "interactions": ["beta blockers", "digoxin"],
+    "grapefruit": "None"
+  },
+  "tramadol": {
+    "name": "Tramadol",
+    "standard_dose_mg": {"adult": 50},
+    "interactions": ["sertraline", "escitalopram", "warfarin"],
+    "grapefruit": "None"
+  },
+  "prednisone": {
+    "name": "Prednisone",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["nsaids", "warfarin", "vaccines"],
+    "grapefruit": "Moderate - Limit grapefruit juice"
+  },
+  "meloxicam": {
+    "name": "Meloxicam",
+    "standard_dose_mg": {"adult": 15},
+    "interactions": ["aspirin", "warfarin", "lisinopril"],
+    "grapefruit": "None"
+  },
+  "carvedilol": {
+    "name": "Carvedilol",
+    "standard_dose_mg": {"adult": 12.5},
+    "interactions": ["diltiazem", "verapamil", "digoxin"],
+    "grapefruit": "None"
+  },
+  "pravastatin": {
+    "name": "Pravastatin",
+    "standard_dose_mg": {"adult": 40},
+    "interactions": ["cyclosporine", "gemfibrozil"],
+    "grapefruit": "None"
+  },
+  "fluoxetine": {
+    "name": "Fluoxetine",
+    "standard_dose_mg": {"adult": 20},
+    "interactions": ["tramadol", "warfarin", "nsaids"],
+    "grapefruit": "None"
+  },
+  "azithromycin": {
+    "name": "Azithromycin",
+    "standard_dose_mg": {"adult": 250},
+    "interactions": ["warfarin", "digoxin", "colchicine"],
+    "grapefruit": "None"
+  },
+  "ciprofloxacin": {
+    "name": "Ciprofloxacin",
+    "standard_dose_mg": {"adult": 500},
+    "interactions": ["warfarin", "theophylline", "antacids"],
+    "grapefruit": "None"
+  },
+  "metoprolol": {
+    "name": "Metoprolol",
+    "standard_dose_mg": {"adult": 50},
+    "interactions": ["diltiazem", "verapamil", "digoxin"],
+    "grapefruit": "None"
+  },
+  "duloxetine": {
+    "name": "Duloxetine",
+    "standard_dose_mg": {"adult": 60},
+    "interactions": ["tramadol", "warfarin", "nsaids"],
+    "grapefruit": "None"
+  },
+  "trazodone": {
+    "name": "Trazodone",
+    "standard_dose_mg": {"adult": 50},
+    "interactions": ["warfarin", "digoxin", "phenytoin"],
+    "grapefruit": "None"
+  },
+  "cyclobenzaprine": {
+    "name": "Cyclobenzaprine",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["tramadol", "sertraline"],
+    "grapefruit": "None"
+  },
+  "clonazepam": {
+    "name": "Clonazepam",
+    "standard_dose_mg": {"adult": 0.5},
+    "interactions": ["opioids", "alcohol"],
+    "grapefruit": "None"
+  },
+  "alprazolam": {
+    "name": "Alprazolam",
+    "standard_dose_mg": {"adult": 0.5},
+    "interactions": ["opioids", "alcohol", "ketoconazole"],
+    "grapefruit": "Moderate - Limit grapefruit juice"
+  },
+  "diazepam": {
+    "name": "Diazepam",
+    "standard_dose_mg": {"adult": 5},
+    "interactions": ["opioids", "alcohol", "omeprazole"],
+    "grapefruit": "None"
+  },
+  "lorazepam": {
+    "name": "Lorazepam",
+    "standard_dose_mg": {"adult": 1},
+    "interactions": ["opioids", "alcohol"],
+    "grapefruit": "None"
+  },
+  "zolpidem": {
+    "name": "Zolpidem",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["opioids", "alcohol", "ketoconazole"],
+    "grapefruit": "None"
+  },
+  "ranitidine": {
+    "name": "Ranitidine",
+    "standard_dose_mg": {"adult": 150},
+    "interactions": ["warfarin", "ketoconazole"],
+    "grapefruit": "None"
+  },
+  "cetirizine": {
+    "name": "Cetirizine",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["alcohol", "sedatives"],
+    "grapefruit": "None"
+  },
+  "fexofenadine": {
+    "name": "Fexofenadine",
+    "standard_dose_mg": {"adult": 180},
+    "interactions": ["antacids", "ketoconazole"],
+    "grapefruit": "Moderate - Avoid grapefruit juice"
+  },
+  "loratadine": {
+    "name": "Loratadine",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["ketoconazole", "erythromycin"],
+    "grapefruit": "None"
+  },
+  "doxycycline": {
+    "name": "Doxycycline",
+    "standard_dose_mg": {"adult": 100},
+    "interactions": ["antacids", "iron", "warfarin"],
+    "grapefruit": "None"
+  },
+  "cephalexin": {
+    "name": "Cephalexin",
+    "standard_dose_mg": {"adult": 500},
+    "interactions": ["metformin", "warfarin"],
+    "grapefruit": "None"
+  },
+  "clarithromycin": {
+    "name": "Clarithromycin",
+    "standard_dose_mg": {"adult": 500},
+    "interactions": ["atorvastatin", "simvastatin", "warfarin", "digoxin"],
+    "grapefruit": "None"
+  },
+  "erythromycin": {
+    "name": "Erythromycin",
+    "standard_dose_mg": {"adult": 500},
+    "interactions": ["warfarin", "digoxin", "theophylline"],
+    "grapefruit": "None"
+  },
+  "levofloxacin": {
+    "name": "Levofloxacin",
+    "standard_dose_mg": {"adult": 500},
+    "interactions": ["warfarin", "nsaids", "antacids"],
+    "grapefruit": "None"
+  },
+  "moxifloxacin": {
+    "name": "Moxifloxacin",
+    "standard_dose_mg": {"adult": 400},
+    "interactions": ["warfarin", "antacids"],
+    "grapefruit": "None"
+  },
+  "digoxin": {
+    "name": "Digoxin",
+    "standard_dose_mg": {"adult": 0.25},
+    "interactions": ["amiodarone", "verapamil", "clarithromycin", "furosemide"],
+    "grapefruit": "None"
+  },
+  "diltiazem": {
+    "name": "Diltiazem",
+    "standard_dose_mg": {"adult": 180},
+    "interactions": ["simvastatin", "atorvastatin", "metoprolol", "digoxin"],
+    "grapefruit": "High - Avoid grapefruit juice"
+  },
+  "verapamil": {
+    "name": "Verapamil",
+    "standard_dose_mg": {"adult": 80},
+    "interactions": ["simvastatin", "atorvastatin", "metoprolol", "digoxin"],
+    "grapefruit": "High - Avoid grapefruit juice"
+  },
+  "amiodarone": {
+    "name": "Amiodarone",
+    "standard_dose_mg": {"adult": 200},
+    "interactions": ["warfarin", "digoxin", "simvastatin"],
+    "grapefruit": "Moderate - Limit grapefruit juice"
+  },
+  "spironolactone": {
+    "name": "Spironolactone",
+    "standard_dose_mg": {"adult": 25},
+    "interactions": ["potassium supplements", "lisinopril", "losartan"],
+    "grapefruit": "None"
+  },
+  "allopurinol": {
+    "name": "Allopurinol",
+    "standard_dose_mg": {"adult": 300},
+    "interactions": ["azathioprine", "warfarin", "ampicillin"],
+    "grapefruit": "None"
+  },
+  "colchicine": {
+    "name": "Colchicine",
+    "standard_dose_mg": {"adult": 0.6},
+    "interactions": ["clarithromycin", "cyclosporine", "statins"],
+    "grapefruit": "High - Avoid grapefruit juice"
+  },
+  "methotrexate": {
+    "name": "Methotrexate",
+    "standard_dose_mg": {"adult": 7.5},
+    "interactions": ["nsaids", "amoxicillin", "omeprazole"],
+    "grapefruit": "None"
+  },
+  "hydroxychloroquine": {
+    "name": "Hydroxychloroquine",
+    "standard_dose_mg": {"adult": 200},
+    "interactions": ["digoxin", "methotrexate"],
+    "grapefruit": "None"
+  },
+  "sulfasalazine": {
+    "name": "Sulfasalazine",
+    "standard_dose_mg": {"adult": 500},
+    "interactions": ["warfarin", "methotrexate", "digoxin"],
+    "grapefruit": "None"
+  },
+  "leflunomide": {
+    "name": "Leflunomide",
+    "standard_dose_mg": {"adult": 20},
+    "interactions": ["warfarin", "methotrexate"],
+    "grapefruit": "None"
+  },
+  "tamsulosin": {
+    "name": "Tamsulosin",
+    "standard_dose_mg": {"adult": 0.4},
+    "interactions": ["warfarin", "cimetidine"],
+    "grapefruit": "None"
+  },
+  "finasteride": {
+    "name": "Finasteride",
+    "standard_dose_mg": {"adult": 5},
+    "interactions": [],
+    "grapefruit": "None"
+  },
+  "sildenafil": {
+    "name": "Sildenafil",
+    "standard_dose_mg": {"adult": 50},
+    "interactions": ["nitrates", "alpha blockers", "ritonavir"],
+    "grapefruit": "Moderate - Limit grapefruit juice"
+  },
+  "tadalafil": {
+    "name": "Tadalafil",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["nitrates", "alpha blockers", "ritonavir"],
+    "grapefruit": "Moderate - Limit grapefruit juice"
+  },
+  "vardenafil": {
+    "name": "Vardenafil",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["nitrates", "alpha blockers", "ritonavir"],
+    "grapefruit": "High - Avoid grapefruit juice"
+  },
+  "buspirone": {
+    "name": "Buspirone",
+    "standard_dose_mg": {"adult": 15},
+    "interactions": ["ketoconazole", "erythromycin"],
+    "grapefruit": "High - Avoid grapefruit juice"
+  },
+  "mirtazapine": {
+    "name": "Mirtazapine",
+    "standard_dose_mg": {"adult": 15},
+    "interactions": ["tramadol", "warfarin"],
+    "grapefruit": "None"
+  },
+  "bupropion": {
+    "name": "Bupropion",
+    "standard_dose_mg": {"adult": 150},
+    "interactions": ["tramadol", "warfarin"],
+    "grapefruit": "None"
+  },
+  "venlafaxine": {
+    "name": "Venlafaxine",
+    "standard_dose_mg": {"adult": 75},
+    "interactions": ["tramadol", "warfarin", "nsaids"],
+    "grapefruit": "None"
+  },
+  "paroxetine": {
+    "name": "Paroxetine",
+    "standard_dose_mg": {"adult": 20},
+    "interactions": ["tramadol", "warfarin", "tamoxifen"],
+    "grapefruit": "None"
+  },
+  "citalopram": {
+    "name": "Citalopram",
+    "standard_dose_mg": {"adult": 20},
+    "interactions": ["tramadol", "warfarin", "nsaids"],
+    "grapefruit": "None"
+  },
+  "quetiapine": {
+    "name": "Quetiapine",
+    "standard_dose_mg": {"adult": 100},
+    "interactions": ["ketoconazole", "phenytoin"],
+    "grapefruit": "Moderate - Limit grapefruit juice"
+  },
+  "risperidone": {
+    "name": "Risperidone",
+    "standard_dose_mg": {"adult": 2},
+    "interactions": ["carbamazepine", "fluoxetine"],
+    "grapefruit": "None"
+  },
+  "aripiprazole": {
+    "name": "Aripiprazole",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["ketoconazole", "carbamazepine"],
+    "grapefruit": "None"
+  },
+  "olanzapine": {
+    "name": "Olanzapine",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["carbamazepine", "fluvoxamine"],
+    "grapefruit": "None"
+  },
+  "lamotrigine": {
+    "name": "Lamotrigine",
+    "standard_dose_mg": {"adult": 100},
+    "interactions": ["valproic acid", "carbamazepine"],
+    "grapefruit": "None"
+  },
+  "topiramate": {
+    "name": "Topiramate",
+    "standard_dose_mg": {"adult": 100},
+    "interactions": ["oral contraceptives", "phenytoin"],
+    "grapefruit": "None"
+  },
+  "levetiracetam": {
+    "name": "Levetiracetam",
+    "standard_dose_mg": {"adult": 500},
+    "interactions": [],
+    "grapefruit": "None"
+  },
+  "phenytoin": {
+    "name": "Phenytoin",
+    "standard_dose_mg": {"adult": 300},
+    "interactions": ["warfarin", "oral contraceptives", "valproic acid"],
+    "grapefruit": "None"
+  },
+  "carbamazepine": {
+    "name": "Carbamazepine",
+    "standard_dose_mg": {"adult": 200},
+    "interactions": ["warfarin", "oral contraceptives", "clarithromycin"],
+    "grapefruit": "Moderate - Limit grapefruit juice"
+  },
+  "valproic acid": {
+    "name": "Valproic Acid",
+    "standard_dose_mg": {"adult": 500},
+    "interactions": ["lamotrigine", "phenytoin", "warfarin"],
+    "grapefruit": "None"
+  },
+  "donepezil": {
+    "name": "Donepezil",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["ketoconazole", "nsaids"],
+    "grapefruit": "None"
+  },
+  "memantine": {
+    "name": "Memantine",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["amantadine", "ketamine"],
+    "grapefruit": "None"
+  },
+  "rivaroxaban": {
+    "name": "Rivaroxaban",
+    "standard_dose_mg": {"adult": 20},
+    "interactions": ["aspirin", "nsaids", "ketoconazole"],
+    "grapefruit": "None"
+  },
+  "apixaban": {
+    "name": "Apixaban",
+    "standard_dose_mg": {"adult": 5},
+    "interactions": ["aspirin", "nsaids", "ketoconazole"],
+    "grapefruit": "None"
+  },
+  "dabigatran": {
+    "name": "Dabigatran",
+    "standard_dose_mg": {"adult": 150},
+    "interactions": ["aspirin", "nsaids", "rifampin"],
+    "grapefruit": "None"
+  },
+  "insulin glargine": {
+    "name": "Insulin Glargine",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["beta blockers", "corticosteroids"],
+    "grapefruit": "None"
+  },
+  "insulin lispro": {
+    "name": "Insulin Lispro",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["beta blockers", "corticosteroids"],
+    "grapefruit": "None"
+  },
+  "glipizide": {
+    "name": "Glipizide",
+    "standard_dose_mg": {"adult": 5},
+    "interactions": ["warfarin", "beta blockers"],
+    "grapefruit": "None"
+  },
+  "glyburide": {
+    "name": "Glyburide",
+    "standard_dose_mg": {"adult": 5},
+    "interactions": ["warfarin", "beta blockers"],
+    "grapefruit": "None"
+  },
+  "sitagliptin": {
+    "name": "Sitagliptin",
+    "standard_dose_mg": {"adult": 100},
+    "interactions": ["digoxin"],
+    "grapefruit": "None"
+  },
+  "empagliflozin": {
+    "name": "Empagliflozin",
+    "standard_dose_mg": {"adult": 10},
+    "interactions": ["diuretics", "insulin"],
+    "grapefruit": "None"
+  },
+  "canagliflozin": {
+    "name": "Canagliflozin",
+    "standard_dose_mg": {"adult": 100},
+    "interactions": ["digoxin", "rifampin"],
+    "grapefruit": "None"
+  },
+  "pioglitazone": {
+    "name": "Pioglitazone",
+    "standard_dose_mg": {"adult": 30},
+    "interactions": ["insulin", "oral contraceptives"],
+    "grapefruit": "None"
+  },
+  "acarbose": {
+    "name": "Acarbose",
+    "standard_dose_mg": {"adult": 100},
+    "interactions": ["digoxin", "warfarin"],
+    "grapefruit": "None"
+  },
+  "naproxen": {
+    "name": "Naproxen",
+    "standard_dose_mg": {"adult": 500},
+    "interactions": ["aspirin", "warfarin", "lisinopril"],
+    "grapefruit": "None"
+  },
+  "celecoxib": {
+    "name": "Celecoxib",
+    "standard_dose_mg": {"adult": 200},
+    "interactions": ["warfarin", "lisinopril", "lithium"],
+    "grapefruit": "None"
+  },
+  "diclofenac": {
+    "name": "Diclofenac",
+    "standard_dose_mg": {"adult": 75},
+    "interactions": ["aspirin", "warfarin", "lisinopril"],
+    "grapefruit": "None"
+  },
+  "acetaminophen": {
+    "name": "Acetaminophen",
+    "standard_dose_mg": {"adult": 500},
+    "interactions": ["warfarin", "alcohol"],
+    "grapefruit": "None"
+  },
+  "codeine": {
+    "name": "Codeine",
+    "standard_dose_mg": {"adult": 30},
+    "interactions": ["benzodiazepines", "alcohol", "tramadol"],
+    "grapefruit": "None"
+  },
+  "betaloc": {
+    "name": "Betaloc",
+    "standard_dose_mg": {"adult": 50},
+    "interactions": ["diltiazem", "verapamil", "digoxin", "insulin"],
+    "grapefruit": "None"
+  },
+  "dorzolamide": {
+    "name": "Dorzolamide",
+    "standard_dose_mg": {"adult": 2},
+    "interactions": ["carbonic anhydrase inhibitors", "aspirin"],
+    "grapefruit": "None"
+  },
+  "cimetidine": {
+    "name": "Cimetidine",
+    "standard_dose_mg": {"adult": 400},
+    "interactions": ["warfarin", "phenytoin", "theophylline", "metformin"],
+    "grapefruit": "None"
+  },
+  "orprelol": {
+    "name": "Orprelol",
+    "standard_dose_mg": {"adult": 40},
+    "interactions": ["diltiazem", "verapamil", "insulin", "clonidine"],
     "grapefruit": "None"
   }
 }

@@ -3,7 +3,7 @@
     "medicine1": "atorvastatin",
     "medicine2": "clarithromycin",
     "severity": "moderate",
-    "description": "Increased exposure to atorvastatin [] increased myopathy risk"
+    "description": "Increased exposure to atorvastatin - increased myopathy risk"
   },
   "ibuprofen_aspirin": {
     "medicine1": "ibuprofen",
@@ -16,5 +16,641 @@
     "medicine2": "warfarin",
     "severity": "high",
     "description": "Increased bleeding risk when combined"
+  },
+  "warfarin_aspirin": {
+    "medicine1": "warfarin",
+    "medicine2": "aspirin",
+    "severity": "high",
+    "description": "Significantly increased bleeding risk"
+  },
+  "warfarin_amoxicillin": {
+    "medicine1": "warfarin",
+    "medicine2": "amoxicillin",
+    "severity": "moderate",
+    "description": "May increase anticoagulant effect"
+  },
+  "lisinopril_ibuprofen": {
+    "medicine1": "lisinopril",
+    "medicine2": "ibuprofen",
+    "severity": "moderate",
+    "description": "Reduced antihypertensive effect and potential kidney damage"
+  },
+  "metformin_alcohol": {
+    "medicine1": "metformin",
+    "medicine2": "alcohol",
+    "severity": "high",
+    "description": "Increased risk of lactic acidosis"
+  },
+  "omeprazole_clopidogrel": {
+    "medicine1": "omeprazole",
+    "medicine2": "clopidogrel",
+    "severity": "moderate",
+    "description": "Reduced effectiveness of clopidogrel"
+  },
+  "simvastatin_amlodipine": {
+    "medicine1": "simvastatin",
+    "medicine2": "amlodipine",
+    "severity": "moderate",
+    "description": "Increased risk of myopathy - limit simvastatin dose"
+  },
+  "simvastatin_clarithromycin": {
+    "medicine1": "simvastatin",
+    "medicine2": "clarithromycin",
+    "severity": "high",
+    "description": "Severe myopathy risk - avoid combination"
+  },
+  "tramadol_sertraline": {
+    "medicine1": "tramadol",
+    "medicine2": "sertraline",
+    "severity": "high",
+    "description": "Increased risk of serotonin syndrome"
+  },
+  "tramadol_escitalopram": {
+    "medicine1": "tramadol",
+    "medicine2": "escitalopram",
+    "severity": "high",
+    "description": "Increased risk of serotonin syndrome"
+  },
+  "clopidogrel_aspirin": {
+    "medicine1": "clopidogrel",
+    "medicine2": "aspirin",
+    "severity": "moderate",
+    "description": "Increased bleeding risk but often prescribed together"
+  },
+  "digoxin_amiodarone": {
+    "medicine1": "digoxin",
+    "medicine2": "amiodarone",
+    "severity": "high",
+    "description": "Increased digoxin levels - reduce digoxin dose"
+  },
+  "digoxin_verapamil": {
+    "medicine1": "digoxin",
+    "medicine2": "verapamil",
+    "severity": "moderate",
+    "description": "Increased digoxin levels - monitor closely"
+  },
+  "digoxin_clarithromycin": {
+    "medicine1": "digoxin",
+    "medicine2": "clarithromycin",
+    "severity": "moderate",
+    "description": "Increased digoxin levels - monitor closely"
+  },
+  "digoxin_furosemide": {
+    "medicine1": "digoxin",
+    "medicine2": "furosemide",
+    "severity": "moderate",
+    "description": "Hypokalemia may increase digoxin toxicity"
+  },
+  "diltiazem_simvastatin": {
+    "medicine1": "diltiazem",
+    "medicine2": "simvastatin",
+    "severity": "moderate",
+    "description": "Increased myopathy risk - limit simvastatin dose"
+  },
+  "diltiazem_metoprolol": {
+    "medicine1": "diltiazem",
+    "medicine2": "metoprolol",
+    "severity": "moderate",
+    "description": "Increased risk of bradycardia and heart block"
+  },
+  "verapamil_simvastatin": {
+    "medicine1": "verapamil",
+    "medicine2": "simvastatin",
+    "severity": "moderate",
+    "description": "Increased myopathy risk - limit simvastatin dose"
+  },
+  "verapamil_metoprolol": {
+    "medicine1": "verapamil",
+    "medicine2": "metoprolol",
+    "severity": "moderate",
+    "description": "Increased risk of bradycardia and heart block"
+  },
+  "spironolactone_lisinopril": {
+    "medicine1": "spironolactone",
+    "medicine2": "lisinopril",
+    "severity": "moderate",
+    "description": "Increased risk of hyperkalemia"
+  },
+  "spironolactone_losartan": {
+    "medicine1": "spironolactone",
+    "medicine2": "losartan",
+    "severity": "moderate",
+    "description": "Increased risk of hyperkalemia"
+  },
+  "lithium_furosemide": {
+    "medicine1": "lithium",
+    "medicine2": "furosemide",
+    "severity": "high",
+    "description": "Increased lithium levels and toxicity risk"
+  },
+  "lithium_lisinopril": {
+    "medicine1": "lithium",
+    "medicine2": "lisinopril",
+    "severity": "high",
+    "description": "Increased lithium levels and toxicity risk"
+  },
+  "lithium_hydrochlorothiazide": {
+    "medicine1": "lithium",
+    "medicine2": "hydrochlorothiazide",
+    "severity": "high",
+    "description": "Increased lithium levels and toxicity risk"
+  },
+  "methotrexate_ibuprofen": {
+    "medicine1": "methotrexate",
+    "medicine2": "ibuprofen",
+    "severity": "high",
+    "description": "Increased methotrexate toxicity"
+  },
+  "methotrexate_amoxicillin": {
+    "medicine1": "methotrexate",
+    "medicine2": "amoxicillin",
+    "severity": "moderate",
+    "description": "May increase methotrexate levels"
+  },
+  "methotrexate_omeprazole": {
+    "medicine1": "methotrexate",
+    "medicine2": "omeprazole",
+    "severity": "moderate",
+    "description": "May increase methotrexate levels"
+  },
+  "colchicine_clarithromycin": {
+    "medicine1": "colchicine",
+    "medicine2": "clarithromycin",
+    "severity": "high",
+    "description": "Severe colchicine toxicity - avoid combination"
+  },
+  "colchicine_simvastatin": {
+    "medicine1": "colchicine",
+    "medicine2": "simvastatin",
+    "severity": "moderate",
+    "description": "Increased risk of myopathy"
+  },
+  "sildenafil_nitrates": {
+    "medicine1": "sildenafil",
+    "medicine2": "nitrates",
+    "severity": "high",
+    "description": "Severe hypotension - contraindicated"
+  },
+  "tadalafil_nitrates": {
+    "medicine1": "tadalafil",
+    "medicine2": "nitrates",
+    "severity": "high",
+    "description": "Severe hypotension - contraindicated"
+  },
+  "vardenafil_nitrates": {
+    "medicine1": "vardenafil",
+    "medicine2": "nitrates",
+    "severity": "high",
+    "description": "Severe hypotension - contraindicated"
+  },
+  "alprazolam_opioids": {
+    "medicine1": "alprazolam",
+    "medicine2": "opioids",
+    "severity": "high",
+    "description": "Severe respiratory depression - avoid combination"
+  },
+  "diazepam_opioids": {
+    "medicine1": "diazepam",
+    "medicine2": "opioids",
+    "severity": "high",
+    "description": "Severe respiratory depression - avoid combination"
+  },
+  "lorazepam_opioids": {
+    "medicine1": "lorazepam",
+    "medicine2": "opioids",
+    "severity": "high",
+    "description": "Severe respiratory depression - avoid combination"
+  },
+  "clonazepam_opioids": {
+    "medicine1": "clonazepam",
+    "medicine2": "opioids",
+    "severity": "high",
+    "description": "Severe respiratory depression - avoid combination"
+  },
+  "warfarin_azithromycin": {
+    "medicine1": "warfarin",
+    "medicine2": "azithromycin",
+    "severity": "moderate",
+    "description": "Increased bleeding risk - monitor INR"
+  },
+  "warfarin_ciprofloxacin": {
+    "medicine1": "warfarin",
+    "medicine2": "ciprofloxacin",
+    "severity": "moderate",
+    "description": "Increased bleeding risk - monitor INR"
+  },
+  "warfarin_clarithromycin": {
+    "medicine1": "warfarin",
+    "medicine2": "clarithromycin",
+    "severity": "moderate",
+    "description": "Increased bleeding risk - monitor INR"
+  },
+  "warfarin_erythromycin": {
+    "medicine1": "warfarin",
+    "medicine2": "erythromycin",
+    "severity": "moderate",
+    "description": "Increased bleeding risk - monitor INR"
+  },
+  "warfarin_metronidazole": {
+    "medicine1": "warfarin",
+    "medicine2": "metronidazole",
+    "severity": "high",
+    "description": "Significantly increased bleeding risk - monitor INR closely"
+  },
+  "phenytoin_warfarin": {
+    "medicine1": "phenytoin",
+    "medicine2": "warfarin",
+    "severity": "moderate",
+    "description": "Complex interaction - monitor INR closely"
+  },
+  "carbamazepine_warfarin": {
+    "medicine1": "carbamazepine",
+    "medicine2": "warfarin",
+    "severity": "moderate",
+    "description": "Reduced warfarin effectiveness"
+  },
+  "valproic acid_lamotrigine": {
+    "medicine1": "valproic acid",
+    "medicine2": "lamotrigine",
+    "severity": "moderate",
+    "description": "Increased lamotrigine levels - reduce lamotrigine dose"
+  },
+  "carbamazepine_lamotrigine": {
+    "medicine1": "carbamazepine",
+    "medicine2": "lamotrigine",
+    "severity": "moderate",
+    "description": "Reduced lamotrigine levels - may need dose increase"
+  },
+  "rivaroxaban_aspirin": {
+    "medicine1": "rivaroxaban",
+    "medicine2": "aspirin",
+    "severity": "moderate",
+    "description": "Increased bleeding risk"
+  },
+  "apixaban_aspirin": {
+    "medicine1": "apixaban",
+    "medicine2": "aspirin",
+    "severity": "moderate",
+    "description": "Increased bleeding risk"
+  },
+  "dabigatran_aspirin": {
+    "medicine1": "dabigatran",
+    "medicine2": "aspirin",
+    "severity": "moderate",
+    "description": "Increased bleeding risk"
+  },
+  "rivaroxaban_ibuprofen": {
+    "medicine1": "rivaroxaban",
+    "medicine2": "ibuprofen",
+    "severity": "moderate",
+    "description": "Increased bleeding risk"
+  },
+  "apixaban_ibuprofen": {
+    "medicine1": "apixaban",
+    "medicine2": "ibuprofen",
+    "severity": "moderate",
+    "description": "Increased bleeding risk"
+  },
+  "dabigatran_ibuprofen": {
+    "medicine1": "dabigatran",
+    "medicine2": "ibuprofen",
+    "severity": "moderate",
+    "description": "Increased bleeding risk"
+  },
+  "prednisone_ibuprofen": {
+    "medicine1": "prednisone",
+    "medicine2": "ibuprofen",
+    "severity": "moderate",
+    "description": "Increased risk of GI bleeding"
+  },
+  "prednisone_aspirin": {
+    "medicine1": "prednisone",
+    "medicine2": "aspirin",
+    "severity": "moderate",
+    "description": "Increased risk of GI bleeding"
+  },
+  "prednisone_warfarin": {
+    "medicine1": "prednisone",
+    "medicine2": "warfarin",
+    "severity": "moderate",
+    "description": "May alter anticoagulant effect"
+  },
+  "levothyroxine_calcium": {
+    "medicine1": "levothyroxine",
+    "medicine2": "calcium",
+    "severity": "moderate",
+    "description": "Reduced levothyroxine absorption - separate by 4 hours"
+  },
+  "levothyroxine_iron": {
+    "medicine1": "levothyroxine",
+    "medicine2": "iron",
+    "severity": "moderate",
+    "description": "Reduced levothyroxine absorption - separate by 4 hours"
+  },
+  "levothyroxine_omeprazole": {
+    "medicine1": "levothyroxine",
+    "medicine2": "omeprazole",
+    "severity": "moderate",
+    "description": "May reduce levothyroxine absorption"
+  },
+  "ciprofloxacin_theophylline": {
+    "medicine1": "ciprofloxacin",
+    "medicine2": "theophylline",
+    "severity": "high",
+    "description": "Increased theophylline levels and toxicity"
+  },
+  "erythromycin_theophylline": {
+    "medicine1": "erythromycin",
+    "medicine2": "theophylline",
+    "severity": "high",
+    "description": "Increased theophylline levels and toxicity"
+  },
+  "albuterol_beta blockers": {
+    "medicine1": "albuterol",
+    "medicine2": "beta blockers",
+    "severity": "moderate",
+    "description": "Reduced effectiveness of both medications"
+  },
+  "meloxicam_aspirin": {
+    "medicine1": "meloxicam",
+    "medicine2": "aspirin",
+    "severity": "moderate",
+    "description": "Increased GI bleeding risk"
+  },
+  "meloxicam_warfarin": {
+    "medicine1": "meloxicam",
+    "medicine2": "warfarin",
+    "severity": "high",
+    "description": "Increased bleeding risk"
+  },
+  "meloxicam_lisinopril": {
+    "medicine1": "meloxicam",
+    "medicine2": "lisinopril",
+    "severity": "moderate",
+    "description": "Reduced antihypertensive effect and kidney risk"
+  },
+  "naproxen_aspirin": {
+    "medicine1": "naproxen",
+    "medicine2": "aspirin",
+    "severity": "moderate",
+    "description": "Increased GI bleeding risk"
+  },
+  "naproxen_warfarin": {
+    "medicine1": "naproxen",
+    "medicine2": "warfarin",
+    "severity": "high",
+    "description": "Increased bleeding risk"
+  },
+  "naproxen_lisinopril": {
+    "medicine1": "naproxen",
+    "medicine2": "lisinopril",
+    "severity": "moderate",
+    "description": "Reduced antihypertensive effect and kidney risk"
+  },
+  "celecoxib_warfarin": {
+    "medicine1": "celecoxib",
+    "medicine2": "warfarin",
+    "severity": "high",
+    "description": "Increased bleeding risk"
+  },
+  "celecoxib_lisinopril": {
+    "medicine1": "celecoxib",
+    "medicine2": "lisinopril",
+    "severity": "moderate",
+    "description": "Reduced antihypertensive effect"
+  },
+  "diclofenac_aspirin": {
+    "medicine1": "diclofenac",
+    "medicine2": "aspirin",
+    "severity": "moderate",
+    "description": "Increased GI bleeding risk"
+  },
+  "diclofenac_warfarin": {
+    "medicine1": "diclofenac",
+    "medicine2": "warfarin",
+    "severity": "high",
+    "description": "Increased bleeding risk"
+  },
+  "diclofenac_lisinopril": {
+    "medicine1": "diclofenac",
+    "medicine2": "lisinopril",
+    "severity": "moderate",
+    "description": "Reduced antihypertensive effect and kidney risk"
+  },
+  "fluoxetine_tramadol": {
+    "medicine1": "fluoxetine",
+    "medicine2": "tramadol",
+    "severity": "high",
+    "description": "Increased risk of serotonin syndrome"
+  },
+  "paroxetine_tramadol": {
+    "medicine1": "paroxetine",
+    "medicine2": "tramadol",
+    "severity": "high",
+    "description": "Increased risk of serotonin syndrome"
+  },
+  "citalopram_tramadol": {
+    "medicine1": "citalopram",
+    "medicine2": "tramadol",
+    "severity": "high",
+    "description": "Increased risk of serotonin syndrome"
+  },
+  "venlafaxine_tramadol": {
+    "medicine1": "venlafaxine",
+    "medicine2": "tramadol",
+    "severity": "high",
+    "description": "Increased risk of serotonin syndrome"
+  },
+  "duloxetine_tramadol": {
+    "medicine1": "duloxetine",
+    "medicine2": "tramadol",
+    "severity": "high",
+    "description": "Increased risk of serotonin syndrome"
+  },
+  "gabapentin_morphine": {
+    "medicine1": "gabapentin",
+    "medicine2": "morphine",
+    "severity": "moderate",
+    "description": "Increased sedation and respiratory depression"
+  },
+  "gabapentin_hydrocodone": {
+    "medicine1": "gabapentin",
+    "medicine2": "hydrocodone",
+    "severity": "moderate",
+    "description": "Increased sedation and respiratory depression"
+  },
+  "cyclobenzaprine_tramadol": {
+    "medicine1": "cyclobenzaprine",
+    "medicine2": "tramadol",
+    "severity": "moderate",
+    "description": "Increased risk of serotonin syndrome"
+  },
+  "cyclobenzaprine_sertraline": {
+    "medicine1": "cyclobenzaprine",
+    "medicine2": "sertraline",
+    "severity": "moderate",
+    "description": "Increased risk of serotonin syndrome"
+  },
+  "amiodarone_simvastatin": {
+    "medicine1": "amiodarone",
+    "medicine2": "simvastatin",
+    "severity": "moderate",
+    "description": "Increased myopathy risk - limit simvastatin dose"
+  },
+  "amiodarone_warfarin": {
+    "medicine1": "amiodarone",
+    "medicine2": "warfarin",
+    "severity": "high",
+    "description": "Significantly increased bleeding risk - reduce warfarin dose"
+  },
+  "allopurinol_azathioprine": {
+    "medicine1": "allopurinol",
+    "medicine2": "azathioprine",
+    "severity": "high",
+    "description": "Severe bone marrow suppression - reduce azathioprine dose"
+  },
+  "allopurinol_warfarin": {
+    "medicine1": "allopurinol",
+    "medicine2": "warfarin",
+    "severity": "moderate",
+    "description": "May increase anticoagulant effect"
+  },
+  "sulfasalazine_warfarin": {
+    "medicine1": "sulfasalazine",
+    "medicine2": "warfarin",
+    "severity": "moderate",
+    "description": "Increased bleeding risk"
+  },
+  "sulfasalazine_methotrexate": {
+    "medicine1": "sulfasalazine",
+    "medicine2": "methotrexate",
+    "severity": "moderate",
+    "description": "May increase methotrexate toxicity"
+  },
+  "leflunomide_warfarin": {
+    "medicine1": "leflunomide",
+    "medicine2": "warfarin",
+    "severity": "moderate",
+    "description": "Increased bleeding risk - monitor INR"
+  },
+  "leflunomide_methotrexate": {
+    "medicine1": "leflunomide",
+    "medicine2": "methotrexate",
+    "severity": "high",
+    "description": "Increased hepatotoxicity - avoid combination"
+  },
+  "topiramate_oral contraceptives": {
+    "medicine1": "topiramate",
+    "medicine2": "oral contraceptives",
+    "severity": "moderate",
+    "description": "Reduced contraceptive effectiveness"
+  },
+  "phenytoin_oral contraceptives": {
+    "medicine1": "phenytoin",
+    "medicine2": "oral contraceptives",
+    "severity": "moderate",
+    "description": "Reduced contraceptive effectiveness"
+  },
+  "carbamazepine_oral contraceptives": {
+    "medicine1": "carbamazepine",
+    "medicine2": "oral contraceptives",
+    "severity": "moderate",
+    "description": "Reduced contraceptive effectiveness"
+  },
+  "sitagliptin_digoxin": {
+    "medicine1": "sitagliptin",
+    "medicine2": "digoxin",
+    "severity": "low",
+    "description": "Slight increase in digoxin levels - monitor"
+  },
+  "canagliflozin_digoxin": {
+    "medicine1": "canagliflozin",
+    "medicine2": "digoxin",
+    "severity": "low",
+    "description": "Slight increase in digoxin levels - monitor"
+  },
+  "glipizide_warfarin": {
+    "medicine1": "glipizide",
+    "medicine2": "warfarin",
+    "severity": "moderate",
+    "description": "May increase anticoagulant effect"
+  },
+  "glyburide_warfarin": {
+    "medicine1": "glyburide",
+    "medicine2": "warfarin",
+    "severity": "moderate",
+    "description": "May increase anticoagulant effect"
+  },
+  "acetaminophen_warfarin": {
+    "medicine1": "acetaminophen",
+    "medicine2": "warfarin",
+    "severity": "moderate",
+    "description": "High doses may increase bleeding risk"
+  },
+  "acetaminophen_alcohol": {
+    "medicine1": "acetaminophen",
+    "medicine2": "alcohol",
+    "severity": "high",
+    "description": "Increased risk of liver damage"
+  },
+  "codeine_benzodiazepines": {
+    "medicine1": "codeine",
+    "medicine2": "benzodiazepines",
+    "severity": "high",
+    "description": "Severe respiratory depression - avoid combination"
+  },
+  "betaloc_diltiazem": {
+    "medicine1": "betaloc",
+    "medicine2": "diltiazem",
+    "severity": "moderate",
+    "description": "Increased risk of bradycardia and heart block"
+  },
+  "betaloc_verapamil": {
+    "medicine1": "betaloc",
+    "medicine2": "verapamil",
+    "severity": "moderate",
+    "description": "Increased risk of bradycardia and heart block"
+  },
+  "betaloc_digoxin": {
+    "medicine1": "betaloc",
+    "medicine2": "digoxin",
+    "severity": "moderate",
+    "description": "Increased risk of bradycardia"
+  },
+  "cimetidine_warfarin": {
+    "medicine1": "cimetidine",
+    "medicine2": "warfarin",
+    "severity": "moderate",
+    "description": "Increased bleeding risk - monitor INR"
+  },
+  "cimetidine_phenytoin": {
+    "medicine1": "cimetidine",
+    "medicine2": "phenytoin",
+    "severity": "moderate",
+    "description": "Increased phenytoin levels - monitor for toxicity"
+  },
+  "cimetidine_theophylline": {
+    "medicine1": "cimetidine",
+    "medicine2": "theophylline",
+    "severity": "moderate",
+    "description": "Increased theophylline levels - monitor for toxicity"
+  },
+  "orprelol_diltiazem": {
+    "medicine1": "orprelol",
+    "medicine2": "diltiazem",
+    "severity": "moderate",
+    "description": "Increased risk of bradycardia and hypotension"
+  },
+  "orprelol_verapamil": {
+    "medicine1": "orprelol",
+    "medicine2": "verapamil",
+    "severity": "moderate",
+    "description": "Increased risk of bradycardia and hypotension"
+  },
+  "dorzolamide_aspirin": {
+    "medicine1": "dorzolamide",
+    "medicine2": "aspirin",
+    "severity": "low",
+    "description": "Monitor for increased side effects"
   }
 }
