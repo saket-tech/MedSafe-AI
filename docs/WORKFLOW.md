@@ -1,4 +1,4 @@
-Workflow - MedSafe AI
+Workflow - MedSafe AI - AI-driven medical safety assistant
 
 Overview
 

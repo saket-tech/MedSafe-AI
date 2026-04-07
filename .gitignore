@@ -60,3 +60,6 @@ htmlcov/
 # Uploaded files
 uploads/
 temp/
+
+# Large sample media kept locally but not committed
+assets/samples/MEDSAFE_DEMO.mp4
