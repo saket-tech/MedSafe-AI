@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: medsafe-backend
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    autoDeployTrigger: commit
+    healthCheckPath: /health
+
+  - type: web
+    name: medsafe-frontend
+    runtime: docker
+    plan: free
+    dockerfilePath: ./frontend/Dockerfile
+    dockerContext: .
+    autoDeployTrigger: commit
+    envVars:
+      - key: MEDSAFE_API_BASE_URL
+        fromService:
+          type: web
+          name: medsafe-backend
+          property: hostport

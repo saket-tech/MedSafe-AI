@@ -49,6 +49,27 @@ The current structure rules are documented in `docs/PROJECT_STRUCTURE.md`.
 .\medsafe_env\Scripts\python.exe scripts\performance_test.py
 ```
 
+## Deploy on Render
+
+This repository includes a ready-to-use Render blueprint in `render.yaml`.
+
+### Services
+
+- `medsafe-backend`: FastAPI API deployed from `backend/Dockerfile`
+- `medsafe-frontend`: Streamlit UI deployed from `frontend/Dockerfile`
+
+### Deploy steps
+
+1. In Render, create a new Blueprint instance from this GitHub repository.
+2. Render will create both web services from `render.yaml`.
+3. The frontend receives `MEDSAFE_API_BASE_URL` automatically from the backend service.
+
+### Deployment notes
+
+- The backend Docker image installs `tesseract-ocr` for prescription OCR.
+- `ollama`-powered features are optional in production. If no Ollama server is available, the app falls back to its built-in non-AI logic for symptom, side-effect, and OCR parsing flows.
+- The large local demo video at `assets/samples/MEDSAFE_DEMO.mp4` is intentionally excluded from GitHub and deployment builds.
+
 ## Notes
 
 Some activity documents in `docs/` describe earlier milestone states of the project and may reference the old flat layout. The current source of truth for structure is `docs/PROJECT_STRUCTURE.md`.

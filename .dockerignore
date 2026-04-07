@@ -1,0 +1,20 @@
+# Exclude local tooling and caches
+.git
+.gitignore
+medsafe_env/
+__pycache__/
+.pytest_cache/
+pytest-cache-files-*/
+*.pyc
+*.pyo
+*.pyd
+
+# Exclude local-only artifacts
+.vscode/
+.idea/
+.streamlit/
+uploads/
+temp/
+assets/
+docs/
+tests/
