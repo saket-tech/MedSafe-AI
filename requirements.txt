@@ -1,7 +1,7 @@
 # MedSafe AI - Python Dependencies
 
 # Frontend
-streamlit>=1.44.0
+streamlit==1.41.0
 requests>=2.32.3
 
 # Backend API

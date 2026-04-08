@@ -67,6 +67,7 @@ This repository includes a ready-to-use Render blueprint in `render.yaml`.
 ### Deployment notes
 
 - The backend Docker image installs `tesseract-ocr` for prescription OCR.
+- The frontend pins `streamlit==1.41.0` to avoid blank-page/static-asset issues seen with newer unpinned builds on some hosted deployments.
 - `ollama`-powered features are optional in production. If no Ollama server is available, the app falls back to its built-in non-AI logic for symptom, side-effect, and OCR parsing flows.
 - The large local demo video at `assets/samples/MEDSAFE_DEMO.mp4` is intentionally excluded from GitHub and deployment builds.
 
