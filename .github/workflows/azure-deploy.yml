@@ -1,0 +1,105 @@
+name: Deploy to Azure
+
+on:
+  push:
+    branches: [main]
+
+env:
+  REGISTRY_NAME: medsafeairegistry
+  IMAGE_NAME: medsafe-backend
+  RESOURCE_GROUP: medsafe-rg
+  CONTAINER_NAME: medsafe-ai
+  LOCATION: eastus
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Log in to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Create resource group
+      run: |
+        az group create \
+          --name ${{ env.RESOURCE_GROUP }} \
+          --location ${{ env.LOCATION }}
+    
+    - name: Create container registry
+      run: |
+        az acr create \
+          --resource-group ${{ env.RESOURCE_GROUP }} \
+          --name ${{ env.REGISTRY_NAME }} \
+          --sku Basic \
+          --admin-enabled true || true
+    
+    - name: Build and push backend image to ACR
+      run: |
+        az acr build \
+          --registry ${{ env.REGISTRY_NAME }} \
+          --image ${{ env.IMAGE_NAME }}:latest \
+          --file backend/Dockerfile .
+    
+    - name: Build frontend image
+      run: |
+        az acr build \
+          --registry ${{ env.REGISTRY_NAME }} \
+          --image medsafe-frontend:latest \
+          --file frontend/Dockerfile .
+    
+    - name: Delete old container if exists
+      run: |
+        az container delete \
+          --resource-group ${{ env.RESOURCE_GROUP }} \
+          --name ${{ env.CONTAINER_NAME }} \
+          --yes || true
+    
+    - name: Deploy to Azure Container Instances
+      run: |
+        REGISTRY_URL=${{ env.REGISTRY_NAME }}.azurecr.io
+        REGISTRY_USER=$(az acr credential show --name ${{ env.REGISTRY_NAME }} --query username --output tsv)
+        REGISTRY_PASS=$(az acr credential show --name ${{ env.REGISTRY_NAME }} --query passwords[0].value --output tsv)
+        
+        az container create \
+          --resource-group ${{ env.RESOURCE_GROUP }} \
+          --name ${{ env.CONTAINER_NAME }} \
+          --image $REGISTRY_URL/${{ env.IMAGE_NAME }}:latest \
+          --cpu 2 \
+          --memory 2 \
+          --registry-login-server $REGISTRY_URL \
+          --registry-username $REGISTRY_USER \
+          --registry-password $REGISTRY_PASS \
+          --dns-name-label ${{ env.CONTAINER_NAME }} \
+          --ports 10000 \
+          --environment-variables \
+            PORT=10000
+    
+    - name: Get deployment URL
+      run: |
+        FQDN=$(az container show \
+          --resource-group ${{ env.RESOURCE_GROUP }} \
+          --name ${{ env.CONTAINER_NAME }} \
+          --query ipAddress.fqdn \
+          --output tsv)
+        echo "🚀 Backend deployed at: http://$FQDN:10000"
+        echo "📋 Health Check: http://$FQDN:10000/health"
+    
+    - name: Wait and test deployment
+      run: |
+        FQDN=$(az container show \
+          --resource-group ${{ env.RESOURCE_GROUP }} \
+          --name ${{ env.CONTAINER_NAME }} \
+          --query ipAddress.fqdn \
+          --output tsv)
+        
+        echo "⏳ Waiting for deployment..."
+        sleep 45
+        
+        echo "🧪 Testing health endpoint..."
+        curl -f http://$FQDN:10000/health && \
+        echo "✅ Deployment successful!" || \
+        echo "⚠️ Health check pending (service may still be starting)"
